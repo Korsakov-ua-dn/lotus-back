@@ -23,8 +23,19 @@ class ActivityController {
 
     async getOne(req, res) {
         try {
-            const activity = await ActivityService.getOne(req.params.id)
-            return res.json(activity)
+            const activity = await ActivityService.getOne(req.params.id);
+            const {startDate, expDate, title, _id, bidders} = activity;
+            const date = new Date(); 
+            const nowUtc = date.getTime() - date.getTimezoneOffset() * 60 * 1000 // текущее время в мс с поправкой на UTC
+          
+            return res.json({
+                startDate,
+                now: nowUtc,
+                expDate,
+                title,
+                _id,
+                bidders,
+            })
         } catch (e) {
             res.status(500).json(e)
         }
