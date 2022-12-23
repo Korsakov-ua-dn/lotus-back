@@ -3,10 +3,13 @@ import mongoose from 'mongoose'
 import router from "./router.js";
 import bodyParser from 'body-parser';
 import cors from "cors";
+import dotenv from "dotenv";
 
+dotenv.config();
 const PORT = process.env.PORT || 5000;
-// const DB_URL = `mongodb+srv://user:user@cluster0.iaj9f.mongodb.net/?retryWrites=true&w=majority`
-const DB_URL = `mongodb+srv://user:UUDS4KytlKyPHyoB@clusteractivity.8t2fk7d.mongodb.net/?retryWrites=true&w=majority`
+const USER_NAME = process.env.USER_NAME;
+const PASSWORD = process.env.PASSWORD;
+const DB_URL = `mongodb+srv://${USER_NAME}:${PASSWORD}@clusteractivity.8t2fk7d.mongodb.net/?retryWrites=true&w=majority`
 
 const app = express()
 
@@ -16,7 +19,6 @@ app.use(express.json())
 app.use(bodyParser.json())
 
 app.use('/api', router)
-// app.use('/user', userrouter)
 
 async function startApp() {
     try {
